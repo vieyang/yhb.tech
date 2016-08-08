@@ -2,16 +2,15 @@
 <head>
 <title>Welcome</title>
 </head>
-<body onload="showTime()">
-
-<div id="timeArea" align="center">
+<body>
+<div id="showTime" align="center">
         <script language="JavaScript">   
-        function showTime(){     
-        var thetime=new Date(); 
-            document.getElementById( "timeArea").innerText   =   thetime.toLocaleString(); 
-            window.setTimeout( "showTime()",1000);
-        } 
-</script>
+                function showTime(){     
+                        var thetime=new Date(); 
+                        document.getElementById( "timeArea").innerText   =   thetime.toLocaleString(); 
+                        window.setTimeout( "showTime()",1000);
+                } 
+        </script>
 </div>
 </body>
 </html>
