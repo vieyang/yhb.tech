@@ -1,16 +1,16 @@
 <html>
 <head>
-<title>在网页中动态显示当前日期和时间</title>
+<title>Welcome</title>
 </head>
 <body onload="showTime()">
 <script language="JavaScript">   
         function showTime(){     
-        var thetime=new Date();   //   初始化日期对象 
+        var thetime=new Date(); 
             document.getElementById( "timeArea").innerText   =   thetime.toLocaleString(); 
-            window.setTimeout( "showTime()",1000);   //setTimeout (表达式,延时时间)其中延时时间以豪秒为单位(1000ms=1s)
-        } 
+            window.setTimeout( "showTime()",1000); 
 </script>
 <div id="timeArea" align="center">
+        
 </div>
 </body>
 </html>
