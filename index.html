@@ -2,15 +2,15 @@
 <head>
 <title>Welcome</title>
     <style type="text/css">
-        div {color:red;height: 100px;line-height: 100px;}
+        div.{color:red;height: 100px;line-height: 100px;}
     </style>
 </head>
 <body>
-    <div id="showTime">
+    <div id="show">
         <script language="JavaScript">   
             function showTime(){     
                 var thetime=new Date(); 
-                document.getElementById( "showTime").innerText = thetime.toLocaleString(); 
+                document.getElementById( "show").innerText = thetime.toLocaleString(); 
                 window.setTimeout( "showTime()",1000);
             } 
         </script>
