@@ -1,13 +1,284 @@
-<!DOCTYPE HTML>  
-<html>  
-  <head>  
-    <title>Welcome to yhb.tech</title>
-  </head>  
-    
-  <body> 
-    <h1><div id="linkweb" align="center"></div></h1> 
-    <script>
-      setInterval("linkweb.innerHTML=new Date().toLocaleString('chinese',{hour12:false});",1000); 
-    </script> 
-  </body>  
-</html>  
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>群侃</title>		
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+
+		
+		<script src="assets/js/jquery.min.js"></script>
+		<script src = "https://cdn.wilddog.com/js/client/current/wilddog.js" ></script>
+		<script type="text/javascript">
+		function getCookie(c_name)
+		{
+			if (document.cookie.length>0)
+			{ 
+				c_start=document.cookie.indexOf(c_name + "=");
+				if (c_start!=-1)
+				{ 
+					c_start=c_start + c_name.length+1;
+					c_end=document.cookie.indexOf(";",c_start);
+					if (c_end==-1) c_end=document.cookie.length;
+					return unescape(document.cookie.substring(c_start,c_end));
+				} 
+			}
+			return "";
+		}
+		
+		function setCookie(c_name,value,expiredays)
+		{
+			var exdate=new Date();
+			exdate.setDate(exdate.getDate()+expiredays);
+			document.cookie=c_name+ "=" +escape(value)+
+				((expiredays==null) ? "" : "; expires="+exdate.toGMTString());
+		}
+		
+		
+		</script>    
+		<script>
+		  var ref = new Wilddog("https://irc.wilddogio.com/msgs/");
+		  var name = getCookie('nickname');
+		  if (name == null) name = '';
+		  
+		  
+		  if(Notification && Notification.permission !== "granted"){
+				Notification.requestPermission(function(status){
+					if(Notification.permission !== status){
+						Notification.permission = status;
+					}
+				});
+			}
+			
+			var tDate = new Date().getTime();
+		</script>
+
+		
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<h1><a href="index.html">群侃</a></h1>
+				</header>
+
+			<!-- Main -->
+				<section id="main" class="container 75%">
+					<header>
+						<h2>群侃</h2>
+						<p>万物互聊</p>
+					</header>
+					<div class="box">
+						<div class="row uniform 50%">
+							<div class="6u 12u(mobilep)">
+								<input id="utx" type="text" name="name"  value="" placeholder="请给自己起个好听的名字~~~" />
+							</div>
+							<div class="6u 12u(mobilep)">
+								<ul class="actions align-center">
+									<li><input type="button" onclick="initName()" value="设置" /></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row uniform 50%">
+							<div class="12u">
+								<textarea name="message" id="tx" disabled="disabled" rows="6"></textarea>
+							</div>
+						</div>
+						<div class="row uniform 50%">
+							<div class="12u">
+								<textarea id="wtx" name="message"  placeholder="来说点什么~~" rows="6"></textarea>
+							</div>
+						</div>
+						<div class="row uniform">
+							<div class="12u">
+								<ul class="actions align-center">
+									<li><input type="button" onclick="onUpdate()" value="发送" /></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+			
+			<script>
+				var tx = document.getElementById("tx");
+				var wtx = document.getElementById("wtx");
+				var ntx = document.getElementById("utx");
+				ntx.value = name;
+				tx.innerHTML = "";
+
+				
+				ref.on("child_added", function(snapshot,error) {
+					var newPost = snapshot.val();
+					if (newPost.date === 1) {
+						tx.innerHTML +=  "*** " + newPost.msg + " ***\r\n";
+						tx.scrollTop = tx.scrollHeight;
+						return;
+					} else if (newPost.date <= tDate) return;
+					var t0 = new Date(newPost.date);
+					tp = t0.getFullYear() + "-" + (t0.getMonth() + 1) + "-" + t0.getDate() + " " + 
+						t0.getHours() + ":" + t0.getMinutes() + ":" + t0.getSeconds();
+					if (newPost.userid == "") {
+						tx.innerHTML +=  "*** " + newPost.msg + " ***\r\n";
+					} else {
+						tx.innerHTML += "[" + tp + "]" + newPost.userid + ": " + newPost.msg + "\r\n";    
+					}
+					tx.scrollTop = tx.scrollHeight;
+					
+					
+					if (newPost.date != 1 && newPost.userid != ntx.value 
+						&& newPost.userid != "" && document.visibilityState==="hidden") {
+					
+						if(Notification && Notification.permission === "granted"){
+							
+							var options={
+								dir: "ltr",
+								lang: "utf-8",
+								body: newPost.msg
+							};
+							
+							var n = new Notification("群侃: "+ newPost.userid + "[" + tp + "]", options);    
+							n.onshow = function(){
+								setTimeout(function(){n.close();}, 5000);
+								
+							};
+							n.onclick = function() {
+								window.location = "/";
+							};
+							n.onclose = function(){
+							};        
+							n.onerror = function() {
+							}            
+						}
+					}
+					
+				});
+				
+				
+				/**
+				if (name == "") {
+					ref.push({
+						date: "0",
+						msg: "有人来了~~~",
+						userid: ""
+					});
+				} else {
+					if (ntx.value != "") {
+						ref.push({
+							date: "123",
+							msg: "我又回来啦~~~",
+							userid: name
+						});
+					}
+				}
+				**/
+			   
+				function onValue() {
+					tx.innerHTML = "";
+					ref.once("value", function(snapshot) {
+						console.log("onValue");
+						var vjson = snapshot.val();
+						console.log(vjson);
+						for(var v in vjson)  
+						{
+							tx.innerHTML += vjson[v].userid + ":" + vjson[v].msg+"\r\n";
+						}
+					});
+				}
+					
+				function onUpdate() {
+					if (name == "") {
+						alert("给自己起个昵称~~~");
+						return;
+					}
+					
+					var v = wtx.value;
+					if (v == "") {
+						wtx.value = "";
+						alert("输入点内容~~~");
+						wtx.value = "";
+						return;
+					}
+					
+					var date = new Date().getTime();
+					ref.push({
+						date: date,
+						msg: v,
+						userid: name
+					});
+					
+					wtx.value = "";
+				}
+				
+				function initName() {
+					if (name == ntx.value) return;
+					if (ntx.value == "") {
+						alert("不能使用空格昵称~~~");
+						return;
+					}
+					var m = "";
+					if (name == "") {
+						m = "欢迎新用户[" + ntx.value + "]";
+					} else {
+						m = "我把昵称改成了[" + ntx.value + "]";
+					}
+					
+					var date = new Date().getTime();
+					ref.push({
+						date: date,
+						msg: m,
+						userid: name
+					});  
+					name = ntx.value;
+					setCookie('nickname',name,365)
+				}
+				
+				
+				document.onkeydown=function(e){
+				if(e.keyCode == 13 && e.ctrlKey){
+							 // 这里实现换行
+					wtx.value += "\r\n";
+				}else if(e.keyCode == 13){
+					// 避免回车键换行
+					e.preventDefault();
+					// 下面写你的发送消息的代码
+					onUpdate();
+				}
+			}
+					
+			</script>			
+	</body>
+</html>
