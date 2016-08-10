@@ -1,2 +1,2 @@
-# yhb.github.com
+# yhb.tech
 Welcome to yhb.tech

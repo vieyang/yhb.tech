@@ -1,11 +1,20 @@
 <!DOCTYPE HTML>  
 <html>  
-  <head>  
-    <title>Welcome to yhb.tech</title>
-  </head>  
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>yhb.tech</title>
+    <style type="text/css">
+    .theme{
+        display: block;
+      	width: 300px;
+     	font-size: 30px;
+      	margin: 100px auto;
+    }
+    </style>
+</head>  
     
   <body> 
-    <h1><div id="linkweb" align="center"></div></h1> 
+    <div id="linkweb" class="theme"></div>
     <script>
       setInterval("linkweb.innerHTML=new Date().toLocaleString('chinese',{hour12:false});",1000); 
     </script> 
